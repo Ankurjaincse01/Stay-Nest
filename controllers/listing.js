@@ -90,17 +90,29 @@ module.exports.renderEditForm = async (req, res) => {
 // Update listing
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
-  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
   
   // Update coordinates if location or country changed
   if (req.body.listing.location || req.body.listing.country) {
     try {
-      const geoData = await geocoder.geocode(`${req.body.listing.location || listing.location}, ${req.body.listing.country || listing.country}`);
+      // Use the NEW location values from req.body for geocoding
+      const newLocation = req.body.listing.location || listing.location;
+      const newCountry = req.body.listing.country || listing.country;
+      console.log("Geocoding for:", `${newLocation}, ${newCountry}`);
+      
+      const geoData = await geocoder.geocode(`${newLocation}, ${newCountry}`);
+      console.log("Geocoding result:", geoData);
+      
       if (geoData && geoData.length > 0) {
         listing.geometry = {
           type: "Point",
           coordinates: [geoData[0].longitude, geoData[0].latitude]
         };
+        await listing.save();
+      } else {
+        // Geocoding returned no results - location might be misspelled
+        console.log("Geocoding returned no results for:", `${newLocation}, ${newCountry}`);
+        req.flash("error", "Could not find location on map. Please check the spelling.");
       }
     } catch (err) {
       console.log("Geocoding error:", err);
@@ -111,9 +123,9 @@ module.exports.updateListing = async (req, res) => {
     let url = req.file.path;
     let filename = req.file.filename;
     listing.image = { url, filename };
+    await listing.save();
   }
   
-  await listing.save();
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
 };
