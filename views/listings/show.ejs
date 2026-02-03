@@ -2,7 +2,8 @@
 
 <div class="container show-container">
     <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <!-- Left Column: Listing Details -->
+        <div class="col-lg-7 col-md-12">
             <!-- Title Section -->
             <div class="show-header">
                 <h2 class="show-title"><%= listing.title %></h2>
@@ -46,7 +47,7 @@
               const listing = <%- JSON.stringify(listing) %>
             </script>
 
-            <% if(currUser) { %>
+            <% if(currUser && (!listing.owner || !currUser._id.equals(listing.owner._id))) { %>
             <!-- Review Form -->
             <div class="show-review-form">
                 <hr>
@@ -106,5 +107,283 @@
             </div>
             <% } %>
         </div>
+
+        <!-- Right Column: Reservation & Billing Section -->
+        <div class="col-lg-5 col-md-12">
+            <div class="reservation-card">
+                <div class="reservation-header">
+                    <div class="price-display">
+                        <span class="price-amount">&#8377 <%= listing.price.toLocaleString("en-IN") %></span>
+                        <span class="price-night">/ night</span>
+                    </div>
+                </div>
+
+                <% if(currUser && (!listing.owner || !currUser._id.equals(listing.owner._id))) { %>
+                <!-- Reservation Form -->
+                <form action="/bookings/listings/<%= listing._id %>/book" method="POST" id="bookingForm">
+                    <div class="reservation-dates">
+                        <div class="date-input-group">
+                            <label for="checkIn">CHECK-IN</label>
+                            <input type="date" name="checkIn" id="checkIn" required>
+                        </div>
+                        <div class="date-input-group">
+                            <label for="checkOut">CHECKOUT</label>
+                            <input type="date" name="checkOut" id="checkOut" required>
+                        </div>
+                    </div>
+
+                    <div class="guest-input-group">
+                        <label for="guests">GUESTS</label>
+                        <select name="guests" id="guests" required>
+                            <option value="">Select guests</option>
+                            <option value="1">1 guest</option>
+                            <option value="2">2 guests</option>
+                            <option value="3">3 guests</option>
+                            <option value="4">4 guests</option>
+                            <option value="5">5 guests</option>
+                            <option value="6">6+ guests</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-reserve">Reserve</button>
+
+                    <!-- Billing Breakdown -->
+                    <div class="billing-section" id="billingSection" style="display: none;">
+                        <hr>
+                        <h6>Price Details</h6>
+                        <div class="billing-row">
+                            <span>&#8377 <%= listing.price.toLocaleString("en-IN") %> x <span id="nightCount">0</span> nights</span>
+                            <span>&#8377 <span id="subtotal">0</span></span>
+                        </div>
+                        <div class="billing-row">
+                            <span>Service fee</span>
+                            <span>&#8377 <span id="serviceFee">0</span></span>
+                        </div>
+                        <hr>
+                        <div class="billing-row billing-total">
+                            <strong>Total</strong>
+                            <strong>&#8377 <span id="totalPrice">0</span></strong>
+                        </div>
+                    </div>
+                </form>
+                <% } else if(!currUser) { %>
+                <a href="/login" class="btn-reserve">Login to Book</a>
+                <% } else { %>
+                <div class="owner-message">
+                    <p>You own this listing</p>
+                </div>
+                <% } %>
+
+                <p class="reservation-note">You won't be charged yet</p>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.reservation-card {
+    position: sticky;
+    top: 100px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: white;
+    margin-bottom: 2rem;
+}
+
+.reservation-header {
+    margin-bottom: 24px;
+}
+
+.price-display {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.price-amount {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222;
+}
+
+.price-night {
+    font-size: 16px;
+    color: #717171;
+}
+
+.reservation-dates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.date-input-group {
+    padding: 10px;
+    border-right: 1px solid #b0b0b0;
+}
+
+.date-input-group:last-child {
+    border-right: none;
+}
+
+.date-input-group label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.date-input-group input {
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    padding: 0;
+    outline: none;
+}
+
+.guest-input-group {
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 16px;
+}
+
+.guest-input-group label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.guest-input-group select {
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    padding: 0;
+    outline: none;
+    background: white;
+}
+
+.btn-reserve {
+    width: 100%;
+    background: #222;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+.btn-reserve:hover {
+    background: #000;
+    color: white;
+}
+
+.billing-section {
+    margin-top: 24px;
+}
+
+.billing-section h6 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.billing-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.billing-total {
+    font-size: 16px;
+    padding-top: 12px;
+}
+
+.reservation-note {
+    text-align: center;
+    color: #717171;
+    font-size: 14px;
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.owner-message {
+    text-align: center;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 8px;
+    color: #717171;
+}
+
+@media (max-width: 991px) {
+    .reservation-card {
+        position: static;
+        margin-top: 2rem;
+    }
+}
+</style>
+
+<script>
+// Calculate billing when dates change
+const checkInInput = document.getElementById('checkIn');
+const checkOutInput = document.getElementById('checkOut');
+const billingSection = document.getElementById('billingSection');
+const pricePerNight = <%= listing.price %>;
+
+// Set minimum date to today
+const today = new Date().toISOString().split('T')[0];
+if (checkInInput) {
+    checkInInput.min = today;
+}
+
+function calculateBilling() {
+    if (!checkInInput || !checkOutInput) return;
+    
+    const checkIn = new Date(checkInInput.value);
+    const checkOut = new Date(checkOutInput.value);
+    
+    if (checkIn && checkOut && checkOut > checkIn) {
+        const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+        const subtotal = pricePerNight * nights;
+        const serviceFee = Math.round(subtotal * 0.1);
+        const total = subtotal + serviceFee;
+        
+        document.getElementById('nightCount').textContent = nights;
+        document.getElementById('subtotal').textContent = subtotal.toLocaleString('en-IN');
+        document.getElementById('serviceFee').textContent = serviceFee.toLocaleString('en-IN');
+        document.getElementById('totalPrice').textContent = total.toLocaleString('en-IN');
+        
+        billingSection.style.display = 'block';
+    } else {
+        billingSection.style.display = 'none';
+    }
+}
+
+if (checkInInput) {
+    checkInInput.addEventListener('change', function() {
+        checkOutInput.min = this.value;
+        calculateBilling();
+    });
+}
+
+if (checkOutInput) {
+    checkOutInput.addEventListener('change', calculateBilling);
+}
+</script>

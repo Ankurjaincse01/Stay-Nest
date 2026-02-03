@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const Review = require("./review");
-const { ref } = require("joi");
 const Schema = mongoose.Schema;
-
+const Review = require("./review");
 
 const listingSchema = new Schema({
   title: {
@@ -17,38 +15,40 @@ const listingSchema = new Schema({
   price: Number,
   location: String,
   country: String,
+  category: {
+    type: String,
+    required: true,
+  },
   geometry: {
     type: {
       type: String,
-      enum: ['Point'],
-      required: true
+      enum: ["Point"],
+      required: true,
     },
     coordinates: {
       type: [Number],
-      required: true
-    }
+      required: true,
+    },
   },
-  reviews:[
+  reviews: [
     {
-      type:Schema.Types.ObjectId,
-      ref:"Review"
-    }
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
   ],
-  owner:{
-    type:Schema.Types.ObjectId,
-    ref:"User"
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
+
+listingSchema.index({ geometry: "2dsphere" });
+
+// Delete reviews 
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    await Review.deleteMany({ _id: { $in: listing.reviews } });
   }
 });
 
-// Create geospatial index for location-based queries
-listingSchema.index({ geometry: '2dsphere' });
-
-listingSchema.post("findOneAndDelete", async (listing)=>{
-  if(listing){
-    await Review.deleteMany({_id:{$in: listing.reviews}});
-  }
-})
-
-
-const Listing = mongoose.model("Listing", listingSchema);
-module.exports = Listing;
+module.exports = mongoose.model("Listing", listingSchema);

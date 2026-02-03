@@ -40,6 +40,17 @@
           </lord-icon>
           <span class="ms-1">Airbnb your home</span>
         </a>
+        <% if(currUser) { %>
+        <a class="nav-link d-flex align-items-center" href="/bookings/my-bookings">
+          <lord-icon
+            src="https://cdn.lordicon.com/fmjvuloes.json"
+            trigger="hover"
+            colors="primary:#222222"
+            style="width:20px;height:20px">
+          </lord-icon>
+          <span class="ms-1">My Bookings</span>
+        </a>
+        <% } %>
         <% if(!currUser) { %>
         <a class="nav-link d-flex align-items-center" href="/signup">
           <lord-icon

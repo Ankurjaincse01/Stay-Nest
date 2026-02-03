@@ -1,342 +1,216 @@
 const sampleListings = [
+  // TRENDING
   {
-    title: "Peaceful Mountain Cabin",
-    description: "Unplug and unwind in this peaceful mountain cabin. Surrounded by nature, it's the perfect escape from the city.",
+    title: "Iconic Houseboat in Dal Lake",
+    description: "Traditional Kashmiri houseboat with shikhara rides and mountain views. Most booked!",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1200,
-    location: "Aspen",
-    country: "United States",
-    geometry: {
-      type: "Point",
-      coordinates: [-106.8175, 39.1911] // Aspen, Colorado
-    }
-  },
-  {
-    title: "Historic Villa in Tuscany",
-    description: "Experience the charm of Tuscany in this beautifully restored villa. Explore the rolling hills and vineyards.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 2500,
-    location: "Florence",
-    country: "Italy",
-    geometry: {
-      type: "Point",
-      coordinates: [11.2558, 43.7696] // Florence, Italy
-    }
-  },
-  {
-    title: "Secluded Treehouse Getaway",
-    description: "Live among the treetops in this unique treehouse retreat. A true nature lover's dream.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 800,
-    location: "Oakhurst",
-    country: "United States",
-  },
-  {
-    title: "Modern Loft in Tokyo",
-    description: "Stay in the heart of Tokyo in this stylish loft with stunning city views. Close to all major attractions.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 3000,
-    location: "Shibuya, Tokyo",
-    country: "Japan",
-  },
-  {
-    title: "Beachfront Bungalow in Bali",
-    description: "Wake up to the sound of waves in this beautiful bungalow right on the beach. Perfect for a tropical escape.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVhY2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1800,
-    location: "Canggu, Bali",
-    country: "Indonesia",
-  },
-  {
-    title: "Luxury Parisian Apartment",
-    description: "A chic apartment in Paris with a view of the Eiffel Tower. Experience the city of lights in style.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGFyaXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 4500,
-    location: "Paris",
-    country: "France",
-  },
-  {
-    title: "Cozy Cottage in the Cotswolds",
-    description: "A charming, traditional cottage in the beautiful English countryside. Perfect for a quiet, relaxing holiday.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1505916349660-8d91a99c3e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNvdHRhZ2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1500,
-    location: "Cotswolds",
-    country: "United Kingdom",
-  },
-  {
-    title: "Sydney Harbour View Penthouse",
-    description: "Enjoy breathtaking views of the Sydney Opera House and Harbour Bridge from this modern penthouse.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1523059623039-a9ed027e7fad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3lkbmV5fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 5000,
-    location: "Sydney",
-    country: "Australia",
-  },
-  {
-    title: "Rustic Log Cabin in Banff",
-    description: "Escape to the Canadian Rockies in this cozy log cabin. Ideal for hiking, skiing, and wildlife watching.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFrZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1600,
-    location: "Banff",
-    country: "Canada",
-  },
-  {
-    title: "Santorini Cave House",
-    description: "A unique stay in a traditional cave house in Oia, with stunning views of the caldera.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2FudG9yaW5pfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 3500,
-    location: "Oia, Santorini",
-    country: "Greece",
-  },
-  {
-    title: "Riad in Marrakech",
-    description: "Experience authentic Moroccan hospitality in this beautiful Riad with a central courtyard and pool.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1300,
-    location: "Marrakech",
-    country: "Morocco",
-  },
-  {
-    title: "Swiss Alps Chalet",
-    description: "A luxurious chalet in the Swiss Alps, perfect for a ski holiday with family and friends.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 6000,
-    location: "Zermatt",
-    country: "Switzerland",
-  },
-  {
-    title: "Floating House in Amsterdam",
-    description: "Live like a local on the canals of Amsterdam in this modern and comfortable floating house.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 2200,
-    location: "Amsterdam",
-    country: "Netherlands",
-  },
-  {
-    title: "Desert Oasis Villa in Dubai",
-    description: "A stunning villa in the desert with a private pool. The ultimate luxury getaway.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1542314831-068cd1dbb563?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 7000,
-    location: "Dubai",
-    country: "United Arab Emirates",
-  },
-  {
-    title: "Jungle Villa in Costa Rica",
-    description: "Immerse yourself in nature in this eco-friendly villa in the Costa Rican jungle. Monkeys and toucans are your neighbors!",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1464890452159-a142111b4637?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1900,
-    location: "La Fortuna",
-    country: "Costa Rica",
-  },
-  {
-    title: "Historic Brownstone in NYC",
-    description: "Live the quintessential New York experience in this classic brownstone apartment in Brooklyn.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1550581190-78c6a67998e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 3800,
-    location: "Brooklyn, New York",
-    country: "United States",
-  },
-  {
-    title: "Lakeside Cabin in Finland",
-    description: "A traditional Finnish cabin by a lake, complete with a private sauna. The perfect place for peace and quiet.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1585544473333-565405a4194e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1400,
-    location: "Lapland",
-    country: "Finland",
-  },
-  {
-    title: "Ipanema Beachfront Condo",
-    description: "A stylish condo with direct access to the famous Ipanema beach in Rio de Janeiro.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1625244724120-13d8b4c0b4d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 2800,
-    location: "Rio de Janeiro",
-    country: "Brazil",
-  },
-  {
-    title: "Tranquil Pagoda in Kyoto",
-    description: "Find your zen in this beautifully restored pagoda surrounded by traditional Japanese gardens.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 4000,
-    location: "Kyoto",
-    country: "Japan",
-  },
-  {
-    title: "Cape Town Villa with Ocean View",
-    description: "A modern villa with an infinity pool overlooking the Atlantic Ocean. The best of Cape Town luxury.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 4800,
-    location: "Cape Town",
-    country: "South Africa",
-  },
-  {
-    title: "Berlin Industrial Loft",
-    description: "A spacious and trendy loft apartment in the creative heart of Berlin, Kreuzberg.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 1700,
-    location: "Berlin",
-    country: "Germany",
-  },
-  {
-    title: "Scottish Highlands Castle",
-    description: "Live like royalty in your own private room in a historic Scottish castle. An unforgettable experience.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1585543805890-6051f7829f98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FzdGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     price: 5500,
-    location: "Scottish Highlands",
-    country: "United Kingdom",
+    location: "Srinagar",
+    country: "India",
+    category: "Trending",
+    geometry: { type: "Point", coordinates: [74.7973, 34.0837] }
   },
   {
-    title: "Farmhouse in Provence",
-    description: "A charming farmhouse surrounded by lavender fields in the south of France. Includes a large garden and pool.",
+    title: "Palace Stay in Jaipur",
+    description: "Royal palace converted to heritage hotel. Experience maharaja lifestyle!",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmFjYXRpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+      url: "https://plus.unsplash.com/premium_photo-1661884238187-1c274b3c3413?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
-    price: 2600,
-    location: "Provence",
-    country: "France",
+    price: 12000,
+    location: "Jaipur",
+    country: "India",
+    category: "Trending",
+    geometry: { type: "Point", coordinates: [75.7873, 26.9124] }
+  },
+  
+  // VILLA
+  {
+    title: "Luxury Beach Villa in Goa",
+    description: "Stunning 4-bedroom villa with private pool, direct beach access, and modern amenities.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 8500,
+    location: "Candolim, Goa",
+    country: "India",
+    category: "Villa",
+    geometry: { type: "Point", coordinates: [73.7622, 15.5173] }
   },
   {
-    title: "Eco-Lodge in the Amazon",
-    description: "Stay deep in the Amazon rainforest in a sustainable eco-lodge. Guided tours and wildlife spotting included.",
+    title: "Heritage Villa in Jaipur",
+    description: "Royal Rajasthani villa with traditional architecture, lush gardens, and 5 spacious bedrooms.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8am90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1669043962278-fcf15a3ba5a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
-    price: 2100,
-    location: "Manaus",
-    country: "Brazil",
+    price: 6500,
+    location: "Jaipur",
+    country: "India",
+    category: "Villa",
+    geometry: { type: "Point", coordinates: [75.7873, 26.9124] }
+  },
+  
+  // FARM HOUSE
+  {
+    title: "Organic Farm House in Lonavala",
+    description: "Peaceful farmhouse surrounded by greenery, organic farming, and mountain views.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1554995207-c18c203602cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 4500,
+    location: "Lonavala",
+    country: "India",
+    category: "Farm House",
+    geometry: { type: "Point", coordinates: [73.4084, 18.7537] }
   },
   {
-    title: "Minimalist Studio in Seoul",
-    description: "A clean, modern, and minimalist studio in the bustling Gangnam district of Seoul.",
+    title: "Vineyard Farm House in Nashik",
+    description: "Beautiful farmhouse in wine country with grape orchards and wine tasting facilities.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1550581190-78c6a67998e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
     },
-    price: 1100,
-    location: "Seoul",
-    country: "South Korea",
+    price: 5000,
+    location: "Nashik",
+    country: "India",
+    category: "Farm House",
+    geometry: { type: "Point", coordinates: [73.7898, 19.9975] }
+  },
+  
+  // POOL HOUSE
+  {
+    title: "Pool Villa in Alibaug",
+    description: "Stunning villa with infinity pool overlooking the sea, perfect for weekend getaways.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 9000,
+    location: "Alibaug",
+    country: "India",
+    category: "Pool House",
+    geometry: { type: "Point", coordinates: [72.8717, 18.6414] }
   },
   {
-    title: "Viking-inspired Longhouse in Iceland",
-    description: "Stay in a unique, modern longhouse inspired by Viking history, with incredible views of the Icelandic landscape.",
+    title: "Luxury Pool House in Gurgaon",
+    description: "Modern pool house with jacuzzi, BBQ area, and entertainment room.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1585544473333-565405a4194e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
     },
-    price: 3200,
-    location: "Hella",
-    country: "Iceland",
+    price: 8000,
+    location: "Gurgaon",
+    country: "India",
+    category: "Pool House",
+    geometry: { type: "Point", coordinates: [77.0266, 28.4595] }
+  },
+  
+  // ROOMS
+  {
+    title: "Cozy Room in South Delhi",
+    description: "Comfortable private room with attached bathroom in safe South Delhi locality.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 1200,
+    location: "South Delhi",
+    country: "India",
+    category: "Rooms",
+    geometry: { type: "Point", coordinates: [77.2167, 28.5355] }
   },
   {
-    title: "Haunted Mansion in New Orleans",
-    description: "A spooky but charming stay in a historic, and allegedly haunted, mansion in the Garden District.",
+    title: "Premium Room in Koramangala",
+    description: "Fully furnished room in Bangalore's tech hub with AC, WiFi, and housekeeping.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1625244724120-13d8b4c0b4d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
     },
-    price: 1666,
-    location: "New Orleans",
-    country: "United States",
+    price: 1500,
+    location: "Koramangala, Bangalore",
+    country: "India",
+    category: "Rooms",
+    geometry: { type: "Point", coordinates: [77.6269, 12.9352] }
+  },
+  
+  // FLAT
+  {
+    title: "2BHK Flat in Powai, Mumbai",
+    description: "Modern 2BHK apartment with gym, swimming pool, and lake view.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1556020685-ae41abfc9365?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 3500,
+    location: "Powai, Mumbai",
+    country: "India",
+    category: "Flat",
+    geometry: { type: "Point", coordinates: [72.9050, 19.1197] }
+  },
+  
+  // PG
+  {
+    title: "Girls PG in HSR Layout",
+    description: "Safe and secure PG for working women with meals, WiFi, and housekeeping.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 800,
+    location: "HSR Layout, Bangalore",
+    country: "India",
+    category: "PG",
+    geometry: { type: "Point", coordinates: [77.6387, 12.9082] }
+  },
+  
+  // CABINS
+  {
+    title: "Mountain Cabin in Shimla",
+    description: "Cozy wooden cabin in the Himalayas with fireplace and stunning mountain views.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 2500,
+    location: "Shimla",
+    country: "India",
+    category: "Cabins",
+    geometry: { type: "Point", coordinates: [77.1734, 31.1048] }
   },
   {
-    title: "Safari Tent in Serengeti",
-    description: "A luxury safari tent in the heart of the Serengeti. Experience the Great Migration up close.",
+    title: "Forest Cabin in Coorg",
+    description: "Secluded cabin in coffee plantations with nature trails and bird watching.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
     },
-    price: 4200,
-    location: "Serengeti National Park",
-    country: "Tanzania",
+    price: 2200,
+    location: "Coorg",
+    country: "India",
+    category: "Cabins",
+    geometry: { type: "Point", coordinates: [75.7382, 12.3375] }
   },
+  
+  // BEACHFRONT
   {
-    title: "Bohemian Apartment in Prague",
-    description: "An artsy and colorful apartment in the historic center of Prague, full of character and charm.",
+    title: "Beachfront Villa in Goa",
+    description: "Stunning beachfront property with direct beach access, ocean views, and sunset dining.",
     image: {
       filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+      url: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
     },
-    price: 950,
-    location: "Prague",
-    country: "Czech Republic",
-  },
-  {
-    title: "Mountain View Retreat in Nepal",
-    description: "A simple, peaceful retreat with stunning views of the Himalayas. The perfect base for trekking.",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 700,
-    location: "Pokhara",
-    country: "Nepal",
+    price: 7500,
+    location: "Palolem Beach, Goa",
+    country: "India",
+    category: "Beachfront",
+    geometry: { type: "Point", coordinates: [74.0233, 15.0100] }
   },
 ];
 
-module.exports = {data:sampleListings}
+module.exports = { data: sampleListings };

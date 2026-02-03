@@ -22,50 +22,42 @@
 
 <div class="filter-section">
   <div id="filters">
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/fkaukecx.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
+    <a href="/listings" class="filter" data-category="">
+      <i class="fa-solid fa-folder"></i>
       <span>Trending</span>
-    </div>
-    <div class="filter">
+    </a>
+    <a href="/listings?category=Rooms" class="filter" data-category="Rooms">
       <i class="fa-solid fa-bed"></i>
       <span>Rooms</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/wmwqvixz.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
-      <span>Iconic Cities</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/iltqorsz.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
-      <span>Mountains</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/fpmskzsv.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
-      <span>Castles</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/jfhbogmw.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
+    </a>
+    <a href="/listings?category=Villa" class="filter" data-category="Villa">
+      <i class="fa-solid fa-house"></i>
+      <span>Villa</span>
+    </a>
+    <a href="/listings?category=Cabins" class="filter" data-category="Cabins">
+      <i class="fa-solid fa-campground"></i>
+      <span>Cabins</span>
+    </a>
+    <a href="/listings?category=Pool House" class="filter" data-category="Pool House">
+      <i class="fa-solid fa-person-swimming"></i>
       <span>Amazing Pools</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/piwupaqb.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
-      <span>Camping</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/qvyppzqz.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
+    </a>
+    <a href="/listings?category=PG" class="filter" data-category="PG">
+      <i class="fa-solid fa-user-group"></i>
+      <span>PG</span>
+    </a>
+    <a href="/listings?category=Farm House" class="filter" data-category="Farm House">
+      <i class="fa-solid fa-tractor"></i>
       <span>Farms</span>
-    </div>
-    <div class="filter">
-      <i class="fa-solid fa-snowflake"></i>
-      <span>Arctic</span>
-    </div>
-    <div class="filter">
-      <i class="fa-solid fa-igloo"></i>
-      <span>Domes</span>
-    </div>
-    <div class="filter">
-      <lord-icon src="https://cdn.lordicon.com/vdjwmfqs.json" trigger="hover" colors="primary:#222222" style="width:24px;height:24px"></lord-icon>
-      <span>Boats</span>
-    </div>
+    </a>
+    <a href="/listings?category=Flat" class="filter" data-category="Flat">
+      <i class="fa-solid fa-building"></i>
+      <span>Flat</span>
+    </a>
+    <a href="/listings?category=Beachfront" class="filter" data-category="Beachfront">
+      <i class="fa-solid fa-umbrella-beach"></i>
+      <span>Beachfront</span>
+    </a>
   </div>
 
   <div class="tax-toggle">
@@ -121,6 +113,20 @@
       taxInfoElements.forEach((el) => el.style.display = "inline");
       priceElements.forEach((el) => el.style.display = "inline");
       priceWithTaxElements.forEach((el) => el.style.display = "none");
+    }
+  });
+
+  // Handle filter active state
+  const urlParams = new URLSearchParams(window.location.search);
+  const activeCategory = urlParams.get('category');
+  const filters = document.querySelectorAll('.filter');
+  
+  filters.forEach(filter => {
+    const filterCategory = filter.getAttribute('data-category');
+    if (!activeCategory && !filterCategory) {
+      filter.classList.add('active');
+    } else if (activeCategory === filterCategory) {
+      filter.classList.add('active');
     }
   });
 </script>
