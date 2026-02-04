@@ -1,6 +1,19 @@
 <% layout("/layouts/boilerplate") %>
 
 <style>
+  .owner-type-section {
+    margin-bottom: 2rem;
+  }
+  
+  .owner-type-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 0.5rem;
+  }
+  
   .category-section {
     margin: 2rem 0;
   }
@@ -48,6 +61,19 @@
     <h3>Create New Listing</h3>
     <form action="/listings" method="post" enctype="multipart/form-data" novalidate class="needs-validation">
       
+      <!-- Owner Type Selection -->
+      <div class="owner-type-section">
+        <label class="form-label">Owner Type</label>
+        <select name="listing[ownerType]" class="owner-type-select" required>
+          <option value="">Select owner type</option>
+          <option value="Individual">Individual</option>
+          <option value="Property Manager">Property Manager</option>
+          <option value="Real Estate Agency">Real Estate Agency</option>
+          <option value="Hotel/Resort">Hotel/Resort</option>
+          <option value="Business Owner">Business Owner</option>
+        </select>
+      </div>
+
       <!-- Category Selection -->
       <div class="category-section">
         <label class="form-label">Which of these best describes your place?</label>

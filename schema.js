@@ -8,6 +8,8 @@ module.exports.listingSchema = Joi.object({
     location: Joi.string().required(),
     country: Joi.string().required(),
     price: Joi.number().required().min(0),
+    category: Joi.string().required(), // ← ADD THIS LINE
+    ownerType: Joi.string().valid("Individual", "Property Manager", "Real Estate Agency", "Hotel/Resort", "Business Owner").allow(""),
     image: Joi.string().allow("", null),
   }).required(),
 });

@@ -19,6 +19,11 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
+  ownerType: {
+    type: String,
+    enum: ["Individual", "Property Manager", "Real Estate Agency", "Hotel/Resort", "Business Owner"],
+    default: "Individual"
+  },
   geometry: {
     type: {
       type: String,
