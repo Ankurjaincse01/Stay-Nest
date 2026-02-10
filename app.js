@@ -25,8 +25,8 @@ const app = express();
 
 // Database connection
 mongoose.connect(dbUrl)
-  .then(() => console.log("✅ Connected to MongoDB Atlas!"))
-  .catch((err) => console.log("❌ MongoDB Error:", err));
+  .then(() => console.log("Connected to MongoDB Atlas!"))
+  .catch((err) => console.log(" MongoDB Error:", err));
 
 // View engine
 app.engine("ejs", ejsMate);
