@@ -1,4 +1,5 @@
 {
+  "name": "staynest",
   "engines":{
      "node": "v22.17.0"
   },
