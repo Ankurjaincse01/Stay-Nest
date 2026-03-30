@@ -1,4 +1,3 @@
-/*
 const sampleListings = [
   // TRENDING
   {
@@ -215,5 +214,3 @@ const sampleListings = [
 ];
 
 module.exports = { data: sampleListings };
-
-*/

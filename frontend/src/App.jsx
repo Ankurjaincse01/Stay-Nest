@@ -16,18 +16,46 @@ import EditListing from "./pages/EditListing";
 import MyBookings from "./pages/MyBookings";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  // 1. Initialize state IMMEDIATELY from localStorage to avoid flicker
+  const [currentUser, setCurrentUser] = useState(() => {
+    const token = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+    if (token && savedUser) {
+      try {
+        return JSON.parse(savedUser);
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
 
   useEffect(() => {
-    // Check if user is logged in
-    axios.get("/auth/current-user")
-      .then(res => {
-        if (res.data.success && res.data.user) {
-          setCurrentUser(res.data.user);
-        }
-      })
-      .catch(err => console.log(err));
+    // 2. Background Verify: Check if the token is still valid with the server
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios.get("/auth/current-user")
+        .then(res => {
+          if (res.data.success && res.data.user) {
+            // Keep the user state (optionally update with fresh data from server)
+            setCurrentUser(res.data.user);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+          } else {
+            // Token was invalid on server-side
+            handleLogout();
+          }
+        })
+        .catch(() => {
+          handleLogout();
+        });
+    }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setCurrentUser(null);
+  };
 
   return (
     <div className="d-flex flex-column min-vh-100">

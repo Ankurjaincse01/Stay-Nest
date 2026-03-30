@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../api/axios";
 
 const ReviewsList = ({ reviews, currentUser, listingId, onReviewDeleted }) => {
   const handleDelete = async (reviewId) => {

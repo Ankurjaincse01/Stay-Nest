@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const ReviewForm = ({ listingId, onReviewAdded }) => {
   const [rating, setRating] = useState(0);

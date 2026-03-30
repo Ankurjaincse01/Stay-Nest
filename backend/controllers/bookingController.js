@@ -14,13 +14,35 @@ module.exports.createBooking = async (req, res) => {
 
   const checkInDate = new Date(checkIn);
   const checkOutDate = new Date(checkOut);
-  const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+  const nights = Math.ceil(
+    (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24)
+  );
 
   if (nights <= 0) {
     throw new ExpressError(400, "Check-out date must be after check-in date.");
   }
 
-  const subtotal = listing.price * nights;
+  // --- CRITICAL: OVERLAP CHECK ---
+  // Find any existing booking for THIS listing that clashes with THESE dates
+  // A booking clashes if: (ExistingCheckIn < NewCheckOut) AND (ExistingCheckOut > NewCheckIn)
+  const overlappingBooking = await Booking.findOne({
+    listing: id,
+    status: "confirmed",
+    $and: [
+      { checkIn: { $lt: checkOutDate } },
+      { checkOut: { $gt: checkInDate } },
+    ],
+  });
+
+  if (overlappingBooking) {
+    return res.status(409).json({
+      success: false,
+      message: "Sorry, these dates are already booked for this property. Please try different dates.",
+    });
+  }
+  // -------------------------------
+
+  const subtotal = (listing.price || 0) * nights;
   const serviceFee = subtotal * 0.1;
   const totalPrice = subtotal + serviceFee;
 
@@ -29,8 +51,9 @@ module.exports.createBooking = async (req, res) => {
     user: req.user._id,
     checkIn: checkInDate,
     checkOut: checkOutDate,
-    guests: guests,
+    guests: guests || 1,
     totalPrice: totalPrice,
+    status: "confirmed"
   });
 
   await booking.save();

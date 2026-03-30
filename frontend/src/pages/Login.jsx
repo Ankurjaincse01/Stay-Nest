@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import { toast } from "react-toastify";
 
 const Login = ({ setCurrentUser }) => {
@@ -17,6 +17,8 @@ const Login = ({ setCurrentUser }) => {
     try {
       const res = await axios.post("/auth/login", formData);
       if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         setCurrentUser(res.data.user);
         toast.success(res.data.message);
         navigate("/listings");

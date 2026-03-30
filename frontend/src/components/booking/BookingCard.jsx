@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const BookingCard = ({ listing, listingId, currentUser }) => {
   const navigate = useNavigate();

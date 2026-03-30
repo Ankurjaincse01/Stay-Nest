@@ -12,13 +12,11 @@ const Home = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const params = new URLSearchParams();
-        if (category) params.set("category", category);
-        if (searchQuery) params.set("q", searchQuery);
-        const url = `/listings${params.toString() ? `?${params}` : ""}`;
-        const res = await axios.get(url);
-        if (res.data.success) {
-          setListings(res.data.listings);
+        const response = await axios.get("/listings", {
+           params: { category, q: searchQuery }
+        });
+        if (response.data.success) {
+          setListings(response.data.listings);
         }
       } catch (err) {
         console.error("Error fetching listings:", err);

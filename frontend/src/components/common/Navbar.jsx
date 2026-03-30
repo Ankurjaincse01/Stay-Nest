@@ -1,17 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const Navbar = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await axios.get("/auth/logout");
-      setCurrentUser(null);
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setCurrentUser(null);
+    navigate("/");
   };
 
   return (
