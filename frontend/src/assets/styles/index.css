@@ -23,6 +23,109 @@ body{
     border-bottom: 1px solid #ebebeb !important;
     padding: 0.5rem 2rem;
 }
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+        height: auto;
+    }
+
+    .navbar-brand {
+        margin-right: 1rem;
+    }
+
+    .fa-compass {
+        font-size: 1.5rem !important;
+    }
+
+    .search-container {
+        position: relative !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        margin: 0.75rem 0 !important;
+    }
+
+    .search-form {
+        width: 100% !important;
+    }
+
+    .search-input {
+        width: 100% !important;
+    }
+
+    .navbar-collapse {
+        padding-top: 0.5rem;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        gap: 0.5rem !important;
+        width: 100%;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0 !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* Search bar visible in mobile menu */
+    .navbar-nav.mx-auto {
+        order: 3;
+        width: 100%;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.4rem 0.75rem;
+        height: auto;
+    }
+
+    .container-fluid {
+        padding: 0 !important;
+    }
+
+    .navbar-brand {
+        margin-right: 0.75rem;
+    }
+
+    .fa-compass {
+        font-size: 1.3rem !important;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.5rem;
+    }
+
+    .search-container-mobile {
+        padding: 0.5rem 0.75rem !important;
+    }
+
+    .search-box {
+        padding: 0.25rem 0.25rem 0.25rem 0.75rem !important;
+    }
+
+    .search-input {
+        width: 100% !important;
+        height: 32px !important;
+        padding: 0.3rem 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .btn-search {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+    }
+
+    .nav-link {
+        padding: 0.4rem 0 !important;
+        font-size: 0.8rem !important;
+        margin: 0 !important;
+    }
+}
 .navbar-brand {
     padding: 0;
     margin-right: 2rem;
@@ -45,9 +148,43 @@ body{
 
 /* Search Bar Styles */
 .search-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 1rem;
+    min-width: 300px;
+}
+
+.search-container form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobile Search Bar - Always Visible Outside Collapse */
+.search-container-mobile {
+    display: none;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.search-container-mobile form {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        display: none !important;
+    }
+    
+    .search-container-mobile {
+        display: block !important;
+    }
 }
 
 .search-form {
@@ -64,6 +201,9 @@ body{
     background-color: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s ease;
+    width: 100%;
+    max-width: 400px;
+    gap: 0.5rem;
 }
 
 .search-box:hover {
@@ -78,10 +218,11 @@ body{
 .search-input {
     border: none !important;
     padding: 0.5rem 0.8rem !important;
-    width: 250px;
+    flex: 1;
     font-size: 0.9rem;
     height: 36px;
     background: transparent !important;
+    min-width: 0;
 }
 
 .search-input:focus {
@@ -104,6 +245,7 @@ body{
     justify-content: center;
     transition: all 0.2s ease;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .btn-search:hover {
@@ -113,8 +255,11 @@ body{
 }
 
 .btn-search i {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* crad */
@@ -179,4 +324,154 @@ body{
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Container Padding */
+.container {
+    padding: 0 2rem;
+}
+
+/* Mobile Responsive - Below 768px */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Filter Section */
+    .filter-section {
+        flex-wrap: wrap;
+        margin: 1rem 0 !important;
+        gap: 0.5rem !important;
+    }
+
+    #filters {
+        gap: 2rem !important;
+        padding: 0 !important;
+    }
+
+    .filter {
+        min-width: 50px;
+    }
+
+    .filter i {
+        font-size: 1.1rem;
+    }
+
+    .filter span {
+        font-size: 0.65rem;
+    }
+
+    /* Tax Toggle */
+    .tax-toggle {
+        width: 100%;
+        margin-top: 1rem !important;
+        padding: 0.8rem !important;
+    }
+
+    .tax-toggle span {
+        font-size: 0.75rem !important;
+    }
+
+    /* Cards */
+    .card-img-top {
+        height: 14rem !important;
+    }
+
+    .card-title {
+        font-size: 0.85rem !important;
+    }
+
+    .card-text {
+        font-size: 0.85rem !important;
+    }
+
+    .listing-card {
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* Extra Small Devices - Below 480px */
+@media (max-width: 480px) {
+    body {
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    /* Filter Section */
+    .filter-section {
+        margin: 0.75rem 0 !important;
+        gap: 0.3rem !important;
+    }
+
+    #filters {
+        gap: 1rem !important;
+        padding: 0 !important;
+        overflow-x: auto;
+    }
+
+    .filter {
+        min-width: 45px;
+        padding: 0.3rem;
+    }
+
+    .filter i {
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .filter span {
+        font-size: 0.6rem;
+        line-height: 1;
+    }
+
+    /* Tax Toggle */
+    .tax-toggle {
+        padding: 0.6rem 0.8rem !important;
+        margin-top: 0.75rem !important;
+    }
+
+    .tax-toggle span {
+        font-size: 0.7rem !important;
+        margin-right: 0.5rem !important;
+    }
+
+    /* Cards */
+    .row {
+        gap: 0.75rem !important;
+        margin-top: 1rem !important;
+    }
+
+    .col {
+        padding-left: 0.375rem !important;
+        padding-right: 0.375rem !important;
+    }
+
+    .card-img-top {
+        height: 12rem !important;
+        border-radius: 0.6rem !important;
+    }
+
+    .card-body {
+        padding: 0.5rem 0 !important;
+    }
+
+    .card-title {
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        line-height: 1.2;
+    }
+
+    .card-text {
+        font-size: 0.7rem !important;
+        line-height: 1.2;
+    }
+
+    .listing-card {
+        margin-bottom: 0.5rem !important;
+    }
 }

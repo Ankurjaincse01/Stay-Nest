@@ -71,7 +71,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4 mt-4">
+      <div className="row row-cols-lg-4 row-cols-md-2 row-cols-1 g-4 mt-4">
         {listings.map(listing => (
           <div className="col" key={listing._id}>
             <Link to={`/listings/${listing._id}`} className="text-decoration-none text-dark">

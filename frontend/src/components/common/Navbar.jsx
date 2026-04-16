@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "../../api/axios";
 
 const Navbar = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -11,24 +13,47 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
     navigate("/");
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const q = e.target.search.value.trim();
+    if(q) navigate(`/listings?q=${encodeURIComponent(q)}`);
+    else navigate('/listings');
+    e.target.reset();
+  };
+
   return (
-    <nav className="navbar navbar-expand-md bg-white border-bottom sticky-top px-4">
+    <nav className="navbar navbar-expand-md bg-white border-bottom sticky-top px-2 px-md-4">
       <div className="container-fluid">
+        {/* Logo */}
         <Link className="navbar-brand" to="/"><i className="fa-solid fa-compass"></i></Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+        {/* Mobile Hamburger */}
+        <button 
+          className="navbar-toggler border-0" 
+          type="button" 
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{ boxShadow: 'none' }}
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+
+        {/* Desktop Menu */}
+        <div className={`collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarNav">
+          {/* Left Links */}
           <div className="navbar-nav">
-            <Link className="nav-link d-flex align-items-center" to="/">
-              <span className="ms-2">Explore</span>
-            </Link>
+            <Link className="nav-link" to="/">Explore</Link>
           </div>
-          
-          <div className="navbar-nav mx-auto search-container">
-            <form className="d-flex search-form" role="search" onSubmit={(e) => { e.preventDefault(); const q = e.target.search.value.trim(); if(q) navigate(`/listings?q=${encodeURIComponent(q)}`); else navigate('/listings'); }}>
+
+          {/* Center Search */}
+          <div className="search-container">
+            <form onSubmit={handleSearch}>
               <div className="search-box">
-                <input className="form-control search-input" type="search" name="search" placeholder="Search destinations" />
+                <input 
+                  className="form-control search-input" 
+                  type="search" 
+                  name="search" 
+                  placeholder="Search destinations" 
+                />
                 <button className="btn btn-search" type="submit">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -36,7 +61,8 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
             </form>
           </div>
 
-          <div className="navbar-nav ms-auto gap-3">
+          {/* Right Links */}
+          <div className="navbar-nav ms-auto gap-2">
             <Link className="nav-link fw-semibold" to="/listings/new">StayNest your home</Link>
             {currentUser && (
               <Link className="nav-link fw-semibold" to="/bookings/my-bookings">My Bookings</Link>
@@ -47,10 +73,27 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
                 <Link className="nav-link fw-bold" to="/login">Log in</Link>
               </>
             ) : (
-              <button className="nav-link fw-bold bg-transparent border-0" onClick={handleLogout}>Log out</button>
+              <button className="nav-link fw-bold bg-transparent border-0 p-0" onClick={handleLogout}>Log out</button>
             )}
           </div>
         </div>
+      </div>
+
+      {/* Mobile Search Bar - Always Visible */}
+      <div className="w-100 d-md-none mt-2 search-container-mobile">
+        <form onSubmit={handleSearch}>
+          <div className="search-box">
+            <input 
+              className="form-control search-input" 
+              type="search" 
+              name="search" 
+              placeholder="Search destinations" 
+            />
+            <button className="btn btn-search" type="submit">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </nav>
   );
