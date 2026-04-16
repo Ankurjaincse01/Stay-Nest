@@ -1,17 +1,23 @@
 const Footer = () => {
   return (
-    <footer className="f-info mt-auto py-3 bg-light text-center border-top">
-      <div className="container">
-        <div className="f-info-socials mb-2">
-          <i className="fa-brands fa-facebook me-2"></i>
-          <i className="fa-brands fa-instagram me-2"></i>
-          <i className="fa-brands fa-linkedin"></i>
+    <footer className="mt-auto py-6 bg-gray-100 text-center border-t border-gray-300">
+      <div className="max-w-full px-4">
+        <div className="flex justify-center gap-4 mb-4 text-2xl text-gray-700">
+          <a href="#" className="hover:text-gray-900 transition">
+            <i className="fa-brands fa-facebook"></i>
+          </a>
+          <a href="#" className="hover:text-gray-900 transition">
+            <i className="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" className="hover:text-gray-900 transition">
+            <i className="fa-brands fa-linkedin"></i>
+          </a>
         </div>
-        <div className="f-info-brand fw-bold mb-2">&copy; StayNest Private Limited</div>
-        <div className="f-info-links">
-          <a href="#" className="text-decoration-none text-dark me-3">Privacy</a>
-          <a href="#" className="text-decoration-none text-dark me-3">Terms</a>
-          <a href="#" className="text-decoration-none text-dark">Company Details</a>
+        <div className="font-bold mb-2 text-gray-900">&copy; StayNest Private Limited</div>
+        <div className="flex justify-center gap-6 text-sm">
+          <a href="#" className="text-gray-700 no-underline hover:text-gray-900 transition">Privacy</a>
+          <a href="#" className="text-gray-700 no-underline hover:text-gray-900 transition">Terms</a>
+          <a href="#" className="text-gray-700 no-underline hover:text-gray-900 transition">Company Details</a>
         </div>
       </div>
     </footer>

@@ -48,52 +48,68 @@ const Home = () => {
 
   return (
     <>
-      <div className="filter-section d-flex align-items-center justify-content-between my-4 gap-3">
-        <div id="filters" className="d-flex overflow-auto gap-5 flex-grow-1 align-items-center px-1" style={{ scrollbarWidth: "none" }}>
+      {/* Filter Section with Tailwind */}
+      <div className="py-6 px-4 md:px-6">
+        {/* Filters Horizontal Scroll */}
+        <div className="flex overflow-x-auto gap-6 pb-4 mb-6 scroll-smooth snap-x snap-mandatory" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
           {filters.map((f, i) => (
-            <div 
-              key={i} 
-              className={`filter d-flex flex-column align-items-center cursor-pointer ${category === f.val || (f.val === "" && !category) ? "active fw-semibold text-dark border-dark" : "text-muted border-transparent"}`} 
+            <button
+              key={i}
               onClick={() => handleFilterClick(f.val)}
-              style={{ minWidth: "fit-content", cursor: "pointer", transition: "all 0.2s", paddingBottom: "0.6rem", borderBottomWidth: "2px", borderBottomStyle: "solid", borderColor: category === f.val || (f.val === "" && !category) ? "#000" : "transparent" }}
+              className={`flex flex-col items-center justify-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 flex-shrink-0 snap-center ${
+                category === f.val || (f.val === "" && !category)
+                  ? "text-black font-semibold border-b-2 border-black"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+              style={{ minWidth: "70px" }}
             >
-              <i className={`fa-solid ${f.icon} mb-2`} style={{ fontSize: "1.35rem", opacity: category === f.val || (f.val === "" && !category) ? "1" : "0.7" }}></i>
-              <span style={{ fontSize: "0.75rem", fontWeight: category === f.val || (f.val === "" && !category) ? "500" : "400" }}>{f.name}</span>
-            </div>
+              <i className={`fa-solid ${f.icon}`} style={{ fontSize: "1.5rem" }}></i>
+              <span className="text-xs font-medium text-center whitespace-nowrap">{f.name}</span>
+            </button>
           ))}
         </div>
-        
-        <div className="tax-toggle border rounded-pill d-flex align-items-center ms-auto bg-white mb-2" style={{ padding: "0.8rem 1.2rem", minWidth: "fit-content", borderColor: "#dddddd" }}>
-          <span className="me-3 text-dark" style={{ fontSize: "0.85rem" }}>Display total before taxes</span>
-          <div className="form-check form-switch m-0 p-0 d-flex align-items-center">
-            <input className="form-check-input ms-0 cursor-pointer" type="checkbox" role="switch" id="taxSwitch" style={{ height: "1.3rem", width: "2.3rem", margin: 0 }} checked={showTaxTotal} onChange={() => setShowTaxTotal(!showTaxTotal)} />
-          </div>
+
+        {/* Tax Toggle */}
+        <div className="flex items-center justify-between bg-white border border-gray-300 rounded-full px-6 py-3 mb-6">
+          <span className="text-sm md:text-base text-gray-700 font-medium">Display total before taxes</span>
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showTaxTotal}
+              onChange={() => setShowTaxTotal(!showTaxTotal)}
+              className="w-5 h-5 cursor-pointer"
+            />
+          </label>
         </div>
       </div>
 
-      <div className="row row-cols-lg-4 row-cols-md-2 row-cols-1 g-4 mt-4">
-        {listings.map(listing => (
-          <div className="col" key={listing._id}>
-            <Link to={`/listings/${listing._id}`} className="text-decoration-none text-dark">
-              <div className="card h-100 border-0 bg-transparent listing-card">
-                <img 
-                  src={listing.image?.url || "https://via.placeholder.com/800x600?text=No+Image"} 
-                  className="card-img-top" 
-                  alt={listing.title} 
-                  style={{ height: "18rem", objectFit: "cover", borderRadius: "0.8rem" }} 
-                />
-                <div className="card-body px-0 pt-2 pb-0">
-                  <div className="card-title fw-semibold m-0" style={{ fontSize: "0.95rem", color: "#222" }}>{listing.title}</div>
-                  <p className="card-text m-0" style={{ fontSize: "0.95rem", color: "#555" }}>
-                    &#8377; {showTaxTotal 
-                       ? `${Math.round(listing.price * 1.18).toLocaleString("en-IN")} total before taxes` 
-                       : `${listing.price?.toLocaleString("en-IN")} / night +18% GST`}
-                  </p>
+      {/* Listing Grid */}
+      <div className="px-4 md:px-6 pb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {listings.map(listing => (
+            <div key={listing._id}>
+              <Link to={`/listings/${listing._id}`} className="text-decoration-none text-dark block h-full">
+                <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 h-full flex flex-col">
+                  <img 
+                    src={listing.image?.url || "https://via.placeholder.com/800x600?text=No+Image"} 
+                    className="w-full h-48 md:h-56 object-cover"
+                    alt={listing.title} 
+                  />
+                  <div className="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-semibold text-sm md:text-base text-gray-900 mb-2">{listing.title}</h3>
+                      <p className="text-xs md:text-sm text-gray-600">
+                        ₹{showTaxTotal 
+                          ? `${Math.round(listing.price * 1.18).toLocaleString("en-IN")} total before taxes` 
+                          : `${listing.price?.toLocaleString("en-IN")} / night +18% GST`}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
