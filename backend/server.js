@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const methodOverride = require("method-override");
 require("dotenv").config();
 const cors = require("cors");
 
@@ -25,7 +24,6 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride("_method"));
 
 // Base route for connectivity check
 app.get("/api/health", (req, res) => {

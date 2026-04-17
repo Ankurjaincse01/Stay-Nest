@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
     background-color: #fff;
     font-family: "Plus Jakarta Sans", sans-serif !important;
@@ -38,4 +34,108 @@ body {
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+/* Search Bar Styles */
+.search-container {
+    flex-grow: 1;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #c0c0c0 !important;
+    border-radius: 25px;
+    padding: 8px 16px;
+    background-color: #fff !important;
+    transition: all 0.2s ease;
+    box-shadow: none !important;
+}
+
+.search-box:focus-within {
+    border-color: #999 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none !important;
+    background: transparent !important;
+    outline: none !important;
+    padding: 6px 8px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: none !important;
+}
+
+.search-input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.btn-search {
+    background: none !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 6px 8px;
+    color: #999;
+    transition: color 0.2s ease;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn-search:focus,
+.btn-search:active {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn-search:hover {
+    color: #555;
+}
+
+/* Mobile Search */
+.search-container-mobile {
+    padding: 0 8px;
+}
+
+@media (min-width: 768px) {
+    .search-container-mobile {
+        display: none !important;
+    }
+}
+
+/* Tax Toggle Switch Styling */
+.tax-toggle .form-check-input {
+    width: 2.3rem !important;
+    height: 1.3rem !important;
+    cursor: pointer;
+    border-color: #ddd !important;
+    background-color: #f0f0f0 !important;
+    transition: all 0.3s ease;
+}
+
+.tax-toggle .form-check-input:checked,
+.tax-toggle input[type="checkbox"]:checked {
+    background-color: #000 !important;
+    border-color: #000 !important;
+    box-shadow: none !important;
+}
+
+.tax-toggle .form-check-input:focus {
+    border-color: #000 !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25) !important;
 }

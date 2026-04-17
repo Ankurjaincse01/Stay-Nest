@@ -72,7 +72,7 @@ StayNest/
 │       └── App.jsx     (Auth State Management)
 ```
 
-## 🔒 Key API Endpoints (Port 4000)
+## 🔒 Key API Endpoints (Port 3000)
 
 | Endpoint | Method | Auth | Description |
 |----------|--------|------|-------------|
@@ -87,7 +87,7 @@ StayNest/
 
 1. Configure `.env` in the `backend/` folder.
 2. Seed the database (Optional): `node sampleListings/seed.js`
-3. Run Backend (`port 4000`) and Frontend (`port 5173/5174`).
+3. Run Backend (`port 3000`) and Frontend (`port 5173/5174`).
 4. Enjoy!
 
 ## 📜 License

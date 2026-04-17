@@ -6,15 +6,11 @@ const multer = require("multer");
 const { storage } = require("../config/cloudinary");
 const upload = multer({ storage });
 const wrapAsync = require("../utils/wrapAsync");
-const reviewRoutes = require("./reviewRoutes");
 
 // List and create property routes
 router.route("/")
   .get(wrapAsync(propertyController.index))
   .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(propertyController.createListing));
-
-// Nested review routes
-router.use("/:id/reviews", reviewRoutes);
 
 // Show, update, delete single property
 router.route("/:id")

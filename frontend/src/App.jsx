@@ -30,6 +30,12 @@ function App() {
     return null;
   });
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setCurrentUser(null);
+  };
+
   useEffect(() => {
     // 2. Background Verify: Check if the token is still valid with the server
     const token = localStorage.getItem("token");
@@ -50,12 +56,6 @@ function App() {
         });
     }
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setCurrentUser(null);
-  };
 
   return (
     <div className="d-flex flex-column min-vh-100">

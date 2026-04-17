@@ -6,7 +6,7 @@ const ReviewsList = ({ reviews, currentUser, listingId, onReviewDeleted }) => {
     try {
       await axios.delete(`/listings/${listingId}/reviews/${reviewId}`);
       onReviewDeleted(reviewId);
-    } catch (err) {
+    } catch {
       alert("Failed to delete review.");
     }
   };

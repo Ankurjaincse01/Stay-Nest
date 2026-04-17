@@ -22,7 +22,7 @@ const MyBookings = () => {
           b._id === bookingId ? { ...b, status: "cancelled" } : b
         ));
       }
-    } catch (err) {
+    } catch {
       alert("Failed to cancel booking.");
     }
   };
