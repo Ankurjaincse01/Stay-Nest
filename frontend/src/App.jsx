@@ -14,6 +14,8 @@ import Signup from "./pages/Signup";
 import NewListing from "./pages/NewListing";
 import EditListing from "./pages/EditListing";
 import MyBookings from "./pages/MyBookings";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   // 1. Initialize state IMMEDIATELY from localStorage to avoid flicker
@@ -72,6 +74,8 @@ function App() {
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} />} />
           <Route path="/bookings/my-bookings" element={<MyBookings />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </main>
 

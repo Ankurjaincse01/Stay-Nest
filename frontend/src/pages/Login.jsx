@@ -50,7 +50,10 @@ const Login = ({ setCurrentUser }) => {
           </div>
           
           <div className="mb-4">
-            <label className="form-label fw-semibold">Password</label>
+            <div className="d-flex justify-content-between align-items-center mb-1">
+              <label className="form-label fw-semibold mb-0">Password</label>
+              <Link to="/forgot-password" className="text-muted" style={{ fontSize: "0.82rem" }}>Forgot password?</Link>
+            </div>
             <input 
               type="password" 
               name="password" 

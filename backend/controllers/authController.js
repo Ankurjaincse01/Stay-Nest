@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const { sanitizeUser } = require("../utils/serializers");
+const { sendPasswordResetEmail } = require("../utils/emailSender");
 
 // Generate JWT token
 const generateToken = (userId) => {
@@ -122,5 +124,86 @@ module.exports.getCurrentUser = async (req, res) => {
   } catch {
     // Invalid / expired token — treat as not logged in
     res.json({ success: true, user: null });
+  }
+};
+
+// POST /auth/forgot-password
+module.exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ success: false, message: "Email is required." });
+    }
+
+    const user = await User.findOne({ email: email.trim().toLowerCase() });
+
+    // Always return success to avoid email enumeration attacks
+    if (!user) {
+      return res.json({
+        success: true,
+        message: "If this email is registered, you will receive a reset link shortly.",
+      });
+    }
+
+    // Generate secure random token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+    await user.save({ validateBeforeSave: false });
+
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    const resetLink = `${frontendUrl}/reset-password/${resetToken}`;
+
+    const emailSent = await sendPasswordResetEmail(user.email, resetLink);
+
+    if (!emailSent) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpires = undefined;
+      await user.save({ validateBeforeSave: false });
+      return res.status(500).json({ success: false, message: "Failed to send reset email. Please try again." });
+    }
+
+    res.json({
+      success: true,
+      message: "If this email is registered, you will receive a reset link shortly.",
+    });
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+};
+
+// POST /auth/reset-password/:token
+module.exports.resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password || password.length < 6) {
+      return res.status(400).json({ success: false, message: "Password must be at least 6 characters." });
+    }
+
+    // Hash the incoming token to compare with stored hash
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ success: false, message: "Reset link is invalid or has expired." });
+    }
+
+    // Update password and clear reset fields
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.json({ success: true, message: "Password reset successfully! You can now log in." });
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
   }
 };
