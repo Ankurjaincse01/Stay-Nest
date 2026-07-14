@@ -71,7 +71,7 @@ module.exports.login = async (req, res) => {
       });
     }
 
-    // Find user (include password for comparison)
+    // Find user
     const user = await User.findOne({ email: normalizedEmail });
     if (!user) {
       return res.status(401).json({

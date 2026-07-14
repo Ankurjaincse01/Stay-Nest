@@ -6,15 +6,18 @@ import { toast } from "react-toastify";
 const Signup = ({ setCurrentUser }) => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axios.post("/auth/signup", formData);
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
@@ -25,6 +28,8 @@ const Signup = ({ setCurrentUser }) => {
       }
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,6 +51,7 @@ const Signup = ({ setCurrentUser }) => {
               value={formData.name}
               onChange={handleChange}
               required 
+              disabled={loading}
             />
           </div>
 
@@ -59,6 +65,7 @@ const Signup = ({ setCurrentUser }) => {
               value={formData.email}
               onChange={handleChange}
               required 
+              disabled={loading}
             />
           </div>
           
@@ -72,10 +79,17 @@ const Signup = ({ setCurrentUser }) => {
               value={formData.password}
               onChange={handleChange}
               required 
+              disabled={loading}
             />
           </div>
 
-          <button type="submit" className="btn btn-dark w-100 fw-bold py-2 mb-3">Sign up</button>
+          <button 
+            type="submit" 
+            className="btn btn-dark w-100 fw-bold py-2 mb-3"
+            disabled={loading}
+          >
+            {loading ? "Creating account..." : "Sign up"}
+          </button>
           
           <p className="text-center mb-0">
             Already have an account? <Link to="/login" className="text-dark fw-bold">Log in</Link>
@@ -87,3 +101,4 @@ const Signup = ({ setCurrentUser }) => {
 };
 
 export default Signup;
+
