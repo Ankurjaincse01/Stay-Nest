@@ -103,12 +103,12 @@ module.exports.login = async (req, res) => {
   }
 };
 
-// GET /auth/logout  (client just deletes the token — server confirms)
+// GET /auth/logout
 module.exports.logout = (req, res) => {
   res.json({ success: true, message: "Logged out successfully." });
 };
 
-// GET /auth/current-user  (requires token in header)
+// GET /auth/current-user
 module.exports.getCurrentUser = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -122,7 +122,7 @@ module.exports.getCurrentUser = async (req, res) => {
 
     res.json({ success: true, user: sanitizeUser(user) });
   } catch {
-    // Invalid / expired token — treat as not logged in
+    // Invalid/expired token — treat as not logged in
     res.json({ success: true, user: null });
   }
 };
@@ -137,7 +137,7 @@ module.exports.forgotPassword = async (req, res) => {
 
     const user = await User.findOne({ email: email.trim().toLowerCase() });
 
-    // Always return success to avoid email enumeration attacks
+    // Return success even if user not found (prevent email enumeration)
     if (!user) {
       return res.json({
         success: true,
@@ -145,12 +145,12 @@ module.exports.forgotPassword = async (req, res) => {
       });
     }
 
-    // Generate secure random token
+    // Generate hashed reset token (1 hour expiry)
     const resetToken = crypto.randomBytes(32).toString("hex");
     const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
     user.resetPasswordToken = hashedToken;
-    user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+    user.resetPasswordExpires = Date.now() + 60 * 60 * 1000;
     await user.save({ validateBeforeSave: false });
 
     const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
@@ -184,7 +184,7 @@ module.exports.resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: "Password must be at least 6 characters." });
     }
 
-    // Hash the incoming token to compare with stored hash
+    // Hash token to compare with stored value
     const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
     const user = await User.findOne({
@@ -196,7 +196,7 @@ module.exports.resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: "Reset link is invalid or has expired." });
     }
 
-    // Update password and clear reset fields
+    // Update password and clear reset token
     user.password = password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;

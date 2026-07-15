@@ -18,7 +18,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
 function App() {
-  // 1. Initialize state IMMEDIATELY from localStorage to avoid flicker
+  // Initialize state from localStorage to avoid flicker
   const [currentUser, setCurrentUser] = useState(() => {
     const token = localStorage.getItem("token");
     const savedUser = localStorage.getItem("user");
@@ -39,17 +39,17 @@ function App() {
   };
 
   useEffect(() => {
-    // 2. Background Verify: Check if the token is still valid with the server
+    // Background verify: check if token is still valid on server
     const token = localStorage.getItem("token");
     if (token) {
       axios.get("/auth/current-user")
         .then(res => {
           if (res.data.success && res.data.user) {
-            // Keep the user state (optionally update with fresh data from server)
+            // Update state with fresh data
             setCurrentUser(res.data.user);
             localStorage.setItem("user", JSON.stringify(res.data.user));
           } else {
-            // Token was invalid on server-side
+            // Token invalid on server — logout
             handleLogout();
           }
         })

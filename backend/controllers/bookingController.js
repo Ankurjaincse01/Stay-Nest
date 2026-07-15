@@ -22,9 +22,7 @@ module.exports.createBooking = async (req, res) => {
     throw new ExpressError(400, "Check-out date must be after check-in date.");
   }
 
-  // --- CRITICAL: OVERLAP CHECK ---
-  // Find any existing booking for THIS listing that clashes with THESE dates
-  // A booking clashes if: (ExistingCheckIn < NewCheckOut) AND (ExistingCheckOut > NewCheckIn)
+  // Check for date overlap with existing confirmed bookings
   const overlappingBooking = await Booking.findOne({
     listing: id,
     status: "confirmed",
@@ -40,7 +38,7 @@ module.exports.createBooking = async (req, res) => {
       message: "Sorry, these dates are already booked for this property. Please try different dates.",
     });
   }
-  // -------------------------------
+
 
   const subtotal = (listing.price || 0) * nights;
   const serviceFee = subtotal * 0.1;

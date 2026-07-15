@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Navbar = ({ currentUser, setCurrentUser }) => {
@@ -26,7 +26,7 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
         {/* Logo */}
         <Link className="navbar-brand" to="/"><i className="fa-solid fa-compass"></i></Link>
 
-        {/* Mobile Hamburger */}
+        {/* Hamburger Toggle */}
         <button 
           className="navbar-toggler border-0" 
           type="button" 
@@ -43,7 +43,7 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
             <Link className="nav-link" to="/">Explore</Link>
           </div>
 
-          {/* Center Search */}
+          {/* Search */}
           <div className="search-container">
             <form onSubmit={handleSearch}>
               <div className="search-box">
@@ -78,7 +78,7 @@ const Navbar = ({ currentUser, setCurrentUser }) => {
         </div>
       </div>
 
-      {/* Mobile Search Bar - Always Visible */}
+      {/* Mobile Search Bar */}
       <div className="w-100 d-md-none mt-2 search-container-mobile">
         <form onSubmit={handleSearch}>
           <div className="search-box">

@@ -22,7 +22,7 @@ module.exports.isLoggedIn = async (req, res, next) => {
         .json({ success: false, message: "User not found. Please log in again." });
     }
 
-    req.user = user; // attach user to request
+    req.user = user;
     next();
   } catch (err) {
     return res

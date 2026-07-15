@@ -10,7 +10,7 @@ const BookingCard = ({ listing, listingId, currentUser }) => {
   const [bookingMsg, setBookingMsg] = useState(null);
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
-  // Compute next day from checkIn for checkout min date
+  // Min checkout = day after checkin
   const minCheckOut = checkIn
     ? (() => {
         const d = new Date(checkIn);
@@ -64,9 +64,9 @@ const BookingCard = ({ listing, listingId, currentUser }) => {
         <span className="fs-6 fw-normal text-muted">/ night</span>
       </div>
 
-      {/* Date + Guests + Reserve Row */}
+      {/* Date + Guests + Reserve */}
       <div className="d-flex flex-column flex-md-row gap-3 align-items-md-center">
-        {/* Check-in / Checkout */}
+        {/* Check-in/Checkout */}
         <div
           className="d-flex flex-row border rounded-3 overflow-hidden flex-grow-1"
           style={{ borderColor: "#c0c0c0" }}

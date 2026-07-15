@@ -2,10 +2,9 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3000",
-  // No withCredentials needed for pure JWT
 });
 
-// Request interceptor — automatically attach JWT token to every request
+// Request interceptor — attach JWT token to every request
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -17,7 +16,7 @@ instance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor — handle 401 globally (token expired / invalid)
+// Response interceptor — handle 401 globally (token expired/invalid)
 instance.interceptors.response.use(
   (response) => response,
   (error) => {

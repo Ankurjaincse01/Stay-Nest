@@ -44,7 +44,7 @@ const MyBookings = () => {
             <div className="col-md-6 col-lg-4" key={book._id}>
               <div className="card border-0 shadow-sm h-100" style={{ borderRadius: "1rem", overflow: "hidden" }}>
 
-                {/* Property Image + Status Badge */}
+                {/* Image + Status Badge */}
                 <div className="position-relative">
                   <img
                     src={book.listing?.image?.url || "https://via.placeholder.com/600x350?text=No+Image"}
@@ -72,7 +72,7 @@ const MyBookings = () => {
                     {book.listing?.location}, {book.listing?.country}
                   </p>
 
-                  {/* Check-in / Check-out Box */}
+                  {/* Check-in/Check-out */}
                   <div className="p-3 mb-3" style={{ backgroundColor: "#f7f7f7", borderRadius: "0.6rem" }}>
                     <div style={{ fontSize: "0.875rem", color: "#333" }}>
                       <span className="fw-semibold">Check-in:</span> {formatDate(book.checkIn)}
@@ -82,7 +82,7 @@ const MyBookings = () => {
                     </div>
                   </div>
 
-                  {/* Guests + Total Price */}
+                  {/* Guests + Price */}
                   <div className="d-flex justify-content-between align-items-center mb-4">
                     <span className="text-dark" style={{ fontSize: "0.875rem" }}>
                       <i className="fa-solid fa-user-group me-2 text-muted"></i>{book.guests || 1} guest{book.guests > 1 ? "s" : ""}

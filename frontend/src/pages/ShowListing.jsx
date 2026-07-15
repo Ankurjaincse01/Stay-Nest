@@ -38,7 +38,7 @@ const ShowListing = ({ currentUser }) => {
     }
   };
 
-  // Loading / Error states
+  // Loading/error states
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!listing) return <div className="text-center my-5"><div className="spinner-border text-dark"></div></div>;
 
@@ -53,10 +53,10 @@ const ShowListing = ({ currentUser }) => {
 
         <ListingHero listing={listing} />
 
-        {/* ── Booking Card ── */}
+        {/* Booking Card */}
         <BookingCard listing={listing} listingId={id} currentUser={currentUser} />
 
-        {/* ── Owner Edit/Delete Controls ── */}
+        {/* Owner Edit/Delete Controls */}
         {isOwner && (
           <div className="d-flex gap-2 mb-4">
             <Link to={`/listings/${id}/edit`} className="btn btn-dark px-4 py-2 fw-semibold">
@@ -70,10 +70,10 @@ const ShowListing = ({ currentUser }) => {
 
         <hr className="my-5 border-secondary border-opacity-25" />
 
-        {/* ── Map ── */}
+        {/* Map */}
         <ListingMap listing={listing} />
 
-        {/* ── Leave a Review (logged-in users only) ── */}
+        {/* Leave a Review */}
         {currentUser && (
           <>
             <hr className="my-5 border-secondary border-opacity-25" />
@@ -91,7 +91,7 @@ const ShowListing = ({ currentUser }) => {
           </>
         )}
 
-        {/* ── All Reviews ── */}
+        {/* All Reviews */}
         <hr className="my-5 border-secondary border-opacity-25" />
         <div className="mb-5">
           <h4 className="fw-semibold mb-4 text-dark" style={{ fontSize: "1.25rem" }}>

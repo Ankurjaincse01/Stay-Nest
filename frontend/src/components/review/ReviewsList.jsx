@@ -40,7 +40,7 @@ const ReviewsList = ({ reviews, currentUser, listingId, onReviewDeleted }) => {
                 </span>
 
                 <div className="d-flex align-items-center gap-2">
-                  {/* Star Rating Display */}
+                  {/* Star Rating */}
                   <span style={{ fontSize: "1rem", letterSpacing: "2px" }}>
                     {[1, 2, 3, 4, 5].map((s) => (
                       <span
@@ -52,7 +52,7 @@ const ReviewsList = ({ reviews, currentUser, listingId, onReviewDeleted }) => {
                     ))}
                   </span>
 
-                  {/* Delete Button — only for review author */}
+                  {/* Delete (author only) */}
                   {isAuthor && (
                     <button
                       onClick={() => handleDelete(review._id)}
@@ -66,7 +66,7 @@ const ReviewsList = ({ reviews, currentUser, listingId, onReviewDeleted }) => {
                 </div>
               </div>
 
-              {/* Review Comment */}
+              {/* Comment */}
               <p className="mb-0 text-dark" style={{ fontSize: "0.9rem", lineHeight: "1.6" }}>
                 {review.comment}
               </p>

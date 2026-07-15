@@ -17,7 +17,7 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// CORS for ALL (to avoid any frontend issues)
+// Enable CORS for all origins
 app.use(cors());
 
 // Body Parsers
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Base route for connectivity check
+// Health check route
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Backend is healthy" });
 });
@@ -36,7 +36,7 @@ app.use("/user", userRoutes);
 app.use("/listings", propertyRoutes);
 app.use("/bookings", bookingRoutes);
 
-// Root route (Fallback)
+// Root route
 app.get("/", (req, res) => {
   res.json({ success: true, message: "Welcome to StayNest API" });
 });

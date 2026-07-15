@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-// Configure email service (Gmail or custom SMTP)
+// Configure Gmail SMTP transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {

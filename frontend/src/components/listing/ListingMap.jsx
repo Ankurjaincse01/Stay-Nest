@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-// ─── Custom red location pin icon ───────────────────────────────────────────
+// Custom red location pin icon
 const customIcon = L.divIcon({
   className: "custom-pin",
   html: `<div style="transform: translate(-50%, -100%);">
@@ -16,15 +16,14 @@ const customIcon = L.divIcon({
   popupAnchor: [0, -38],
 });
 
-// ─── Props ───────────────────────────────────────────────────────────────────
-// listing    : { title, location, geometry }
+// listing: { title, location, geometry }
 const ListingMap = ({ listing }) => {
   const markerRef = useRef(null);
   
   const coordinates = listing.geometry?.coordinates || [75.7873, 26.9124];
   const mapCenter = [coordinates[1], coordinates[0]];
 
-  // Auto-open the popup once the marker mounts
+  // Auto-open popup when marker mounts
   useEffect(() => {
     if (markerRef.current) {
       markerRef.current.openPopup();
